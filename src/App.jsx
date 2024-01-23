@@ -1,15 +1,23 @@
 import { useState } from "react";
-import HomePage from "./components/home/HomePage";
+import { useParams } from "react-router-dom";
 import NavBar from "./components/navbar/NavBar";
+import HomePage from "./components/home/HomePage";
+import ShopPage from "./components/shop/ShopPage";
 import "./App.css";
 
 function App() {
-	const [count, setCount] = useState([]);
-
+	const [items, setItems] = useState([]);
+	const { name } = useParams();
 	return (
 		<>
-			<NavBar items={count} />
-			<HomePage />
+			<NavBar items={items} />
+			{name === "home" ? (
+				<HomePage />
+			) : name === "shop" ? (
+				<ShopPage />
+			) : (
+				<HomePage />
+			)}
 		</>
 	);
 }

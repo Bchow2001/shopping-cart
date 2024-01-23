@@ -4,8 +4,8 @@ function NavBar({ items }) {
 	const count = items.length;
 	return (
 		<>
-			<Link to="home">Home Page</Link>
-			<Link to="shop">Shop</Link>
+			<Link to="/">Home Page</Link>
+			<Link to="/shop">Shop</Link>
 			<h1>{count}</h1>
 		</>
 	);
