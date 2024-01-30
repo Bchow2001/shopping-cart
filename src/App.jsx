@@ -8,13 +8,17 @@ import "./App.css";
 function App() {
 	const [items, setItems] = useState([]);
 	const { name } = useParams();
+
+	function handleChange(e) {
+		console.log(e.target.previousSibling);
+	}
 	return (
 		<>
 			<NavBar items={items} />
 			{name === "home" ? (
 				<HomePage />
 			) : name === "shop" ? (
-				<ShopPage />
+				<ShopPage handleChange={handleChange} />
 			) : (
 				<HomePage />
 			)}
