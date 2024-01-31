@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function NavBar({ items }) {
-	const count = items.length;
+	const count = items.reduce((acc, { quantity }) => acc + quantity, 0);
 	return (
 		<>
 			<Link to="/home">Home Page</Link>
