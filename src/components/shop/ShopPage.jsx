@@ -2,7 +2,7 @@ import Cards from "./Cards";
 import Fetch from "./Fetch";
 import { useState, useEffect } from "react";
 
-function ShopPage({ handleChange }) {
+function ShopPage({ handleChange, handleButton }) {
 	const [error, setError] = useState(null);
 	const [goods, setGoods] = useState([]);
 	useEffect(() => {
@@ -19,7 +19,11 @@ function ShopPage({ handleChange }) {
 	return (
 		<>
 			<h1>Shop</h1>
-			<Cards goods={goods} onChange={handleChange} />
+			<Cards
+				goods={goods}
+				handleChange={handleChange}
+				handleButton={handleButton}
+			/>
 		</>
 	);
 }

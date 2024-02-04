@@ -10,9 +10,9 @@ function App() {
 	const { name } = useParams();
 
 	function handleChange(e) {
-		const updatedItems = [...items];
-		const itemName = e.target.getAttribute("data-name");
-		const itemPrice = e.target.getAttribute("data-price");
+		let updatedItems = [...items];
+		const itemName = e.target.parentElement.getAttribute("data-name");
+		const itemPrice = e.target.parentElement.getAttribute("data-price");
 		const quantity = e.target.valueAsNumber;
 		if (updatedItems.some((ele) => ele.name === itemName)) {
 			const itemIndex = updatedItems.findIndex(
@@ -26,16 +26,45 @@ function App() {
 				quantity: quantity,
 			});
 		}
+		updatedItems = updatedItems.filter(
+			(item) => !isNaN(item.quantity) && item.quantity !== 0,
+		);
 		setItems([...updatedItems]);
 	}
+
+	function handleButton(e) {
+		const itemChange = parseInt(e.target.getAttribute("data-change"));
+		if (itemChange === 1) {
+			const input = e.target.previousSibling;
+			if (isNaN(input.valueAsNumber)) {
+				input.valueAsNumber = 1;
+			} else {
+				input.valueAsNumber += itemChange;
+			}
+			input.dispatchEvent(new Event("change", { bubbles: true }));
+		} else if (itemChange === -1) {
+			const input = e.target.nextSibling;
+			if (isNaN(input.valueAsNumber)) {
+				return;
+			} else {
+				if (input.valueAsNumber !== 0) {
+					input.valueAsNumber += itemChange;
+					input.dispatchEvent(new Event("change", { bubbles: true }));
+				}
+			}
+		}
+	}
+
 	return (
 		<>
 			<NavBar items={items} />
-			<button onClick={() => console.log(items)}>item</button>
 			{name === "home" ? (
 				<HomePage />
 			) : name === "shop" ? (
-				<ShopPage handleChange={handleChange} />
+				<ShopPage
+					handleChange={handleChange}
+					handleButton={handleButton}
+				/>
 			) : (
 				<HomePage />
 			)}

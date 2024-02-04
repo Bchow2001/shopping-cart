@@ -1,14 +1,6 @@
 import styles from "./cardStyles.module.css";
 
-function Cards({ goods, onChange }) {
-	function addOne(e) {
-		let val = e.target.previousSibling.valueAsNumber;
-		if (isNaN(val)) {
-			e.target.previousSibling.value = 1;
-		} else {
-			e.target.previousSibling.value = val += 1;
-		}
-	}
+function Cards({ goods, handleChange, handleButton }) {
 	const listItems = goods.map((good) => {
 		return (
 			<li key={good.id}>
@@ -16,16 +8,25 @@ function Cards({ goods, onChange }) {
 				<h2 className="good-name">{good.title}</h2>
 				<h2>{good.price}</h2>
 				<p>{good.description}</p>
-				<span>
-					<button type="button">-1</button>
+				<span data-name={good.title} data-price={good.price}>
+					<button
+						type="button"
+						data-change={-1}
+						onClick={handleButton}
+					>
+						-1
+					</button>
 					<input
+						className="value"
 						type="number"
 						min={0}
-						onChange={onChange}
-						data-name={good.title}
-						data-price={good.price}
+						onChange={handleChange}
 					></input>
-					<button type="button" onClick={addOne}>
+					<button
+						type="button"
+						data-change={1}
+						onClick={handleButton}
+					>
 						+1
 					</button>
 				</span>
