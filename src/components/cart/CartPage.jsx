@@ -2,7 +2,6 @@ import styles from "../shop/cardStyles.module.css";
 function CartPage({ items }) {
 	const cartItems = items.map((good) => {
 		if (good.quantity > 0 && !isNaN(good.quantity)) {
-			console.log(good);
 			return (
 				<li key={good.id}>
 					<img className={styles.img} src={good.image}></img>
@@ -14,7 +13,6 @@ function CartPage({ items }) {
 		}
 	});
 	const totalPrice = items.reduce((acc, { quantity, price }) => {
-		console.log(acc);
 		return quantity !== 0 && !isNaN(parseInt(quantity))
 			? acc + parseInt(quantity) * parseInt(price)
 			: acc;
