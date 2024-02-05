@@ -1,7 +1,7 @@
 import styles from "./cardStyles.module.css";
 
-function Cards({ goods, handleChange, handleButton }) {
-	const listItems = goods.map((good) => {
+function Cards({ items, handleChange, handleButton }) {
+	const listItems = items.map((good) => {
 		return (
 			<li key={good.id}>
 				<img className={styles.img} src={good.image}></img>
@@ -20,7 +20,24 @@ function Cards({ goods, handleChange, handleButton }) {
 						className="value"
 						type="number"
 						min={0}
+						value={good.quantity}
 						onChange={handleChange}
+						onKeyDown={(e) => {
+							if (e.code === "Minus") {
+								e.preventDefault();
+							}
+						}}
+						onPaste={(e) => {
+							const clipboardData =
+								e.clipboardData || window.clipboardData;
+							const pastedData = parseFloat(
+								clipboardData.getData("text"),
+							);
+
+							if (pastedData < 0) {
+								e.preventDefault();
+							}
+						}}
 					></input>
 					<button
 						type="button"
